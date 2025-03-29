@@ -5,7 +5,7 @@ const fs = require('fs');
 const path = require('path');
 const { Client, Collection, GatewayIntentBits, Partials } = require('discord.js');
 const { prefix } = require('./config.json');
-const handleBlackjackButtons = require('./buttonhandler_blackjack.js');
+const handleBlackjackButtons = require('./buttonHandler_blackjack.js');
 
 
 const client = new Client({
@@ -27,6 +27,20 @@ for (const file of commandFiles) {
   const command = require(`./commands/${file}`);
   client.commands.set(command.name, command);
 }
+
+const express = require('express');
+const app = express();
+
+app.get('/', (req, res) => {
+  res.send('Botul este online!');
+});
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`✅ Server Express pornit pe portul ${PORT}`);
+});
+
+
 
 // Prefix commands
 client.on('messageCreate', async message => {
